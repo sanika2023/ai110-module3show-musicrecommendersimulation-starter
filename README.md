@@ -92,6 +92,11 @@ pip install -r requirements.txt
 python -m src.main
 ```
 
+
+
+
+
+
 ### Running Tests
 
 Run the starter tests with:
@@ -130,6 +135,23 @@ This output confirms the `pop/happy` profile is favoring songs with matching gen
 
 Here is a screenshot from one run:
 ![Screenshot](recommendation-screenshot.png)
+
+---
+The script runs a single profile by default. To evaluate multiple profiles manually, change the `user_prefs` dictionary in `src/main.py` and run the command again.
+
+Suggested profiles and example runs:
+
+- **High-Energy Pop**: `{"genre": "pop", "mood": "happy", "energy": 0.95}`
+- **Chill Lofi**: `{"genre": "electronic", "mood": "chill", "energy": 0.25}`
+- **Deep Intense Rock**: `{"genre": "rock", "mood": "intense", "energy": 0.90}`
+- **Conflict Profile**: `{"genre": "classical", "mood": "sad", "energy": 0.90}`
+
+
+![High-Energy Pop](screenshots/high-energy-pop.png)
+![Chill Lofi](screenshots/chill-lofi.png)
+![Deep Intense Rock](screenshots/deep-intense-rock.png)
+![Conflict Profile](screenshots/conflict-profile.png)
+
 
 ---
 

@@ -58,31 +58,13 @@ Prompts:
 
 ## 6. Limitations and Bias 
 
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
-
----
+The energy scoring mechanism creates filter bubbles for users with extreme energy preferences, as the absolute difference calculation strictly penalizes energy mismatches. For instance, a user who prefers very low-energy music (e.g., 0.2) will rarely see high-energy songs (e.g., 0.9), even if those songs perfectly match their favorite genre or mood, limiting their exposure to potentially enjoyable tracks. This bias was evident in the weight shift experiment, where doubling energy importance caused recommendations to prioritize energy closeness over genre matches, potentially unfair to users who value genre more. Additionally, the small dataset (17 songs) with uneven genre distribution—pop and lofi are overrepresented—means certain musical tastes are underserved, reinforcing biases towards popular or chill styles. Overall, the system's sensitivity to weight changes highlights how small algorithmic tweaks can amplify these inequities, making it less robust for diverse user preferences.
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
+I tested several user profiles to see how the recommender handles different preferences. The default profile (pop, happy, energy 0.8) recommended pop and happy songs with close energy, like "Sunrise City." After the weight shift experiment (doubling energy importance, halving genre), the same profile suddenly favored energy-matched songs over genre matches, with "Storm Runner" (rock, intense, energy 0.91) topping the list despite no genre or mood alignment. This surprised me because it showed how sensitive the system is to scoring weights—small changes can flip recommendations from genre-focused to energy-focused, potentially making it feel unpredictable or biased.
 
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
-
----
+I also evaluated hypothetical profiles like High-Energy Pop (pop, happy, 0.95), which would boost intense pop tracks; Chill Lofi (electronic, chill, 0.25), favoring mellow electronic songs; Deep Intense Rock (rock, intense, 0.90), pulling up aggressive rock; and a Conflict Profile (classical, sad, 0.90), which might struggle with contradictions. Comparisons are detailed in `reflection.md`. Overall, the tests revealed that the system works well for straightforward preferences but creates filter bubbles for extremes, as seen in the energy dominance after tuning.
 
 ## 8. Future Work  
 

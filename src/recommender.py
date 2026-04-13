@@ -98,10 +98,10 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score = 0.0
     reasons: List[str] = []
 
-    # Genre is the strongest signal.
+    # Genre is a moderate signal.
     if song.get('genre') == user_prefs.get('genre'):
-        score += 2.0
-        reasons.append('genre match (+2.0)')
+        score += 1.0
+        reasons.append('genre match (+1.0)')
     else:
         reasons.append('genre mismatch (+0.0)')
 
@@ -116,7 +116,7 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     user_energy = float(user_prefs.get('energy', 0.0))
     song_energy = float(song.get('energy', 0.0))
     energy_diff = abs(song_energy - user_energy)
-    energy_score = max(0.0, 2.0 * (1.0 - energy_diff))
+    energy_score = max(0.0, 4.0 * (1.0 - energy_diff))
     score += energy_score
     reasons.append(f'energy closeness (+{energy_score:.2f})')
 
