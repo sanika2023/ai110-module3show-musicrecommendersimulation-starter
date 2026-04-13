@@ -2,17 +2,21 @@
 
 ## Profile Comparisons
 
-### Default Pop/Happy (genre=pop, mood=happy, energy=0.8) - Original vs Weight-Shifted
-**Original (genre +2.0, mood +1.0, energy up to +2.0):** Top recommendations included "Sunrise City" (pop, happy, energy 0.82) with score ~4.96 (genre +2, mood +1, energy +1.96), followed by other pop/happy matches. This made sense because genre was the strongest weight, favoring pop songs.
+### High-Energy Pop vs Chill Lofi
+The High-Energy Pop screenshot actually showed "Sunrise City" at the top with score 4.74, followed by "Gym Hero" at 3.96. That means the recommender still preferred a pop song that matched both genre and happy mood, even though the profile wanted higher energy. This makes sense because the system gives a lot of weight to matching genre and mood, so a slightly lower-energy pop song can beat a perfect-energy song with the wrong mood.
 
-**Weight-Shifted (genre +1.0, mood +1.0, energy up to +4.0):** Rankings flipped to energy-focused: "Storm Runner" (rock, intense, energy 0.91) scored 3.96 (energy closeness +3.96), "Electric Dreams" (electronic, excited, energy 0.88) at 3.92, ignoring genre/mood mismatches. This surprised me because doubling energy importance overwhelmed genre, showing how sensitive the system is to tuning—users prioritizing genre might get irrelevant recommendations.
+For Chill Lofi, the top results were "Spacewalk Thoughts" and "Library Rain," both chill mood songs with low energy. This was expected: the model rewarded mood match and energy closeness while avoiding high-energy pop tracks. In other words, Chill Lofi behaved like a calm listener who is willing to accept genre mismatch so long as the song feels mellow.
 
-### High-Energy Pop (genre=pop, mood=happy, energy=0.95) vs Chill Lofi (genre=electronic, mood=chill, energy=0.25)
-High-Energy Pop would likely top with "Gym Hero" (pop, intense, energy 0.93) scoring high on genre match (+1.0) and energy closeness (~3.88), even though mood is intense vs happy—it's like recommending a pumped-up workout track for cheerful music, which could work if the user enjoys energetic vibes. Chill Lofi would shift to low-energy electronic/chill songs like "Spacewalk Thoughts" (ambient, chill, energy 0.28), scoring ~3.88 on energy, prioritizing mellow tracks over excitement mismatches. The difference highlights energy filter bubbles: high-energy profiles get intense songs regardless of mood, while low-energy ones get calm ones, potentially missing cross-genre gems.
+### Deep Intense Rock vs Conflict Profile
+The Deep Intense Rock screenshot showed "Storm Runner" as the clear winner with genre match, mood match, and very close energy. That confirmed the system works well when genre, mood, and energy all agree.
 
-### Deep Intense Rock (genre=rock, mood=intense, energy=0.90) vs Conflict Profile (genre=classical, mood=sad, energy=0.90)
-Deep Intense Rock would favor "Storm Runner" (rock, intense, energy 0.91) with genre +1.0, mood +1.0, energy ~3.96, a perfect match. Conflict Profile (high energy with sad mood) might recommend "Raging Fire" (metal, angry, energy 0.95) scoring ~3.80 on energy alone, or "Moonlit Serenade" (classical, romantic, energy 0.20) if genre mattered more—but with current weights, energy dominates, so it picks high-energy mismatches. This makes sense because the system adds scores without considering contradictions, potentially recommending aggressive metal to someone wanting sad classical, which could feel off.
+The Conflict Profile screenshot was especially revealing. The top song was "Moonlit Serenade," a classical track with the right genre but wrong mood and low energy. It scored higher than sad high-energy matches like "Heartbreak Blues" because genre match was stronger than the other signals. That shows the system can be “tricked” by contradictory preferences: if the user wants sad and high-energy classical, the recommender may still choose a low-energy classical song just because the genre is correct.
 
-### Why "Gym Hero" Shows Up for Happy Pop Seekers
-"Gym Hero" (pop, intense, energy 0.93) appears for happy pop profiles because genre match gives +1.0 (or +2.0 originally), and energy closeness adds significant points (~3.88 in shifted version), outweighing the mood mismatch (intense vs happy). It's like suggesting an upbeat gym anthem to someone who wants cheerful music—it might energize them and fit as "happy" in a broad sense, but it's not purely joyful. The system assumes genre is key, so it boosts pop tracks even if mood isn't exact, which is valid if users see intense pop as a subtype of happy music, but could be frustrating if they want only lighthearted tunes.</content>
-<parameter name="filePath">c:\Users\sanik\OneDrive\Documents\Codepath\AI110\show_Music_Recommender\ai110-module3show-musicrecommendersimulation-starter\reflection.md
+### What Changed and Why It Makes Sense
+- **High-Energy Pop**: The recommendation stayed within pop because pop genre match is a strong signal, even though the energy preference was high. So the system acts like it thinks “happy pop” is more important than “just high-energy.”
+- **Chill Lofi**: The system shifted to mellow mood matches, which is good for a chill listener. It shows mood can override genre when the energy preference is low.
+- **Deep Intense Rock**: When all three signals align, the output is very stable. That means the model is good at clear, unambiguous tastes.
+- **Conflict Profile**: The model struggled because it could not balance two opposing desires. This makes sense given the current math: it simply adds scores, so a strong genre match can outweigh a mismatched energy or mood.
+
+### Explaining to a Non-Programmer
+If you ask for “Happy Pop,” the system often recommends songs like "Gym Hero" because it sees pop as the most important part of your taste. Even if "Gym Hero" feels more intense than you asked for, the model thinks you still want pop music first. This is why a workout-style pop song can show up for someone asking for cheerful pop: the recommender is treating genre similarity as the biggest clue to what you like.

@@ -157,43 +157,37 @@ Suggested profiles and example runs:
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
+We tested several user profiles and one weight change experiment.
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+- Switched the default profile from medium energy pop/happy to a high-energy pop profile.
+- Tested a Chill Lofi profile and saw low energy, chill mood songs rise to the top.
+- Tested a Deep Intense Rock profile and saw a strong genre+mood match win.
+- Tested a Conflict Profile and saw the system choose the right genre even when mood and energy did not match.
+- Changed energy weight and observed the model move from genre/mood focus to energy focus.
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
+This recommender is simple and biased by the small dataset.
 
-Examples:
+- It only has 17 songs, so many tastes are missing.
+- Pop and lofi are overrepresented, so those styles show up more often.
+- The current score math can favor genre too much or energy too much when weights change.
+- It does not understand lyrics, artist style, or real listener context.
 
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
 
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
+I learned that recommenders are really just weighted guesses based on how a song matches a user profile. In this project, the model added up genre, mood, and energy scores to decide which songs felt right, and changing those weights could make the top results look very different.
 
-[**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
-
+I also saw how bias can appear when one signal is stronger than the others. For example, the system sometimes preferred a pop song with the wrong mood because genre match was counted first, and it also favored the small number of pop/lofi tracks in the catalog. That means the model can be unfair to users with less common tastes or contradictory preferences.
 
 ---
 
-## 7. `model_card_template.md`
+## 7. `model_card_template.md` -- find my version in model_card.md
 
 Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
 
