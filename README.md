@@ -23,11 +23,23 @@ Some prompts to answer:
 
 - What features does each `Song` use in your system
   - For example: genre, mood, energy, tempo
+
+  In this system, these numerical features are used: energy, tempo_bpm, valence, daceability, acousticness. These categorical features are used: genre, mood.
+
+
 - What information does your `UserProfile` store
+
+The user profile stores the preferred values for each numerical feature and the preferred categories for thr categorical fetaures.
+
+
 - How does your `Recommender` compute a score for each song
+
+The recommender calculates a similarity score for each song based on how closely it matches the user's profile. First, for each numerical feature a similarity score is computed using this formula: 1 - |song_value - user_preference|. score = 1 means perfect match. Second, for categorical features, a score of 0 or 1 is given depending on whether it is a match or not. Third, all of these are calculated into one score as the average across features (with optional weighting for importance). Finally, a final score is provided that is to be used by the system.
+
+
 - How do you choose which songs to recommend
 
-You can include a simple diagram or bullet list if helpful.
+First, compute scores for all songs in the dataset. Then, rank them by overall score and recommend the top N songs (e.g., top 3-5), excluding any already liked by the user. If ties occur, break them by secondary criteria like genre diversity.
 
 ---
 
