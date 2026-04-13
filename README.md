@@ -142,7 +142,7 @@ Suggested profiles and example runs:
 
 ## Experiments You Tried
 
-We tested several user profiles and one weight change experiment.
+I tested several user profiles and one weight change experiment.
 
 - Switched the default profile from medium energy pop/happy to a high-energy pop profile.
 - Tested a Chill Lofi profile and saw low energy, chill mood songs rise to the top.
