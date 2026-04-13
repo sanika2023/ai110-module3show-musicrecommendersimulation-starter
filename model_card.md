@@ -19,18 +19,15 @@ Prompts:
 
 ---
 
-## 3. How the Model Works  
+## 3. How the Model Works 
 
-Explain your scoring approach in simple language.  
+Describe your scoring logic in plain language.
 
-Prompts:  
+- What features of each song does it consider
+- What information about the user does it use
+- How does it turn those into a number
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+Try to avoid code in this section, treat it like an explanation to a non programmer.
 
 ---
 

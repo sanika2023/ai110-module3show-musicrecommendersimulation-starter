@@ -29,7 +29,7 @@ Some prompts to answer:
 
 - What information does your `UserProfile` store
 
-The user profile stores the preferred values for each numerical feature and the preferred categories for thr categorical fetaures.
+The user profile stores the preferred values for each numerical feature and the preferred categories for the categorical fetaures.
 
 
 - How does your `Recommender` compute a score for each song
@@ -40,6 +40,32 @@ The recommender calculates a similarity score for each song based on how closely
 - How do you choose which songs to recommend
 
 First, compute scores for all songs in the dataset. Then, rank them by overall score and recommend the top N songs (e.g., top 3-5), excluding any already liked by the user. If ties occur, break them by secondary criteria like genre diversity.
+
+- Algorithm Recipe
+
+This recommender works like a matchmaker: it compares what you like with each song and gives it a score. Higher scoring songs get recommended first.
+
+**The scoring system uses three signals, in order of importance:**
+
+1. **Genre (Most Important - +2.0 points):** If a song matches your favorite genre, it gets +2.0 points. Otherwise, it gets 0. This is the biggest factor—the system strongly prefers your favorite genre. For example, if you like pop, a pop song starts with an advantage; a rock song starts at zero.
+
+2. **Mood (Important - +1.0 point):** If a song matches your favorite mood (like "happy," "chill," or "intense"), it gets +1.0 point. Otherwise, it gets 0. This reinforces songs that match the emotional vibe you're looking for.
+
+3. **Energy (Flexible - up to +2.0 points):** Energy measures how much intensity or excitement a song has. The system doesn't say "high energy is always good" or "low energy is always good." Instead, it rewards songs that match *your preferred energy level* closely. A perfect energy match gets +2.0 points; songs further away get fewer points. For example, if you like moderate energy (0.80), a song with energy 0.82 scores nearly +2.0, while a song with energy 0.30 gets much less.
+
+**How it works in practice:** The system adds up all three scores for each song. Songs are then ranked from highest to lowest score, and the top songs are recommended to you (unless you've already liked them).
+
+**Example:** If you prefer pop music with a happy mood and moderate energy (0.80), then:
+- "Sunrise City" (pop, happy, energy 0.82) scores: 2.0 + 1.0 + 1.96 = 4.96 ✓ Top recommendation
+- "Storm Runner" (rock, intense, energy 0.91) scores: 0.0 + 0.0 + 1.78 = 1.78 ✗ Much lower
+
+The weighted approach prioritizes finding songs in your favorite genre and mood, while also considering energy to add variety.
+
+---
+
+## 3. How It Works (Short Explanation)
+
+
 
 ---
 
@@ -75,6 +101,35 @@ pytest
 ```
 
 You can add more tests in `tests/test_recommender.py`.
+
+---
+
+## Sample Recommendation Output
+
+When you run the default profile (`genre=pop`, `mood=happy`, `energy=0.8`), the terminal should show the top-ranked songs with score and reasons. For example:
+
+```text
+Successfully loaded 17 songs from data/songs.csv
+
+Top recommendations:
+
+1. Sunrise City (Neon Echo)
+   Score: 4.96
+   Reasons: genre match (+2.0); mood match (+1.0); energy closeness (+1.96)
+
+2. Gym Hero (Max Pulse)
+   Score: 3.74
+   Reasons: genre match (+2.0); mood mismatch (+0.0); energy closeness (+1.74)
+
+3. Rooftop Lights (Indigo Parade)
+   Score: 2.92
+   Reasons: genre mismatch (+0.0); mood match (+1.0); energy closeness (+1.92)
+```
+
+This output confirms the `pop/happy` profile is favoring songs with matching genre and mood first, then energy closeness.
+
+Here is a screenshot from one run:
+![Screenshot](recommendation-screenshot.png)
 
 ---
 
