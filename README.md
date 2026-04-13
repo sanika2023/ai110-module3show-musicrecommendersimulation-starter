@@ -52,9 +52,7 @@ The weighted approach prioritizes finding songs in your favorite genre and mood,
 
 ## 3. How It Works (Short Explanation)
 
-
-
----
+The system scores each song by checking how well it matches the user's preferred genre, mood, and energy. Songs get points for exact matches in genre and mood, plus bonus points for energy closeness. The top-scoring songs are recommended.
 
 ## Getting Started
 
@@ -134,10 +132,10 @@ Suggested profiles and example runs:
 - **Conflict Profile**: `{"genre": "classical", "mood": "sad", "energy": 0.90}`
 
 
-![High-Energy Pop](screenshots/high-energy-pop.png)
-![Chill Lofi](screenshots/chill-lofi.png)
-![Deep Intense Rock](screenshots/deep-intense-rock.png)
-![Conflict Profile](screenshots/conflict-profile.png)
+![High-Energy Pop](high-energy-pop.png)
+![Chill Lofi](chill-lofi.png)
+![Deep Intense Rock](deep-intense-rock.png)
+![Conflict Profile](conflict-profile.png)
 
 
 ---
